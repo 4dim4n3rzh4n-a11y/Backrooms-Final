@@ -47,7 +47,7 @@ public class CameraBob : MonoBehaviour
 
         Vector3 newPos = defaultPos;
         newPos.y += Mathf.Sin(timer) * bobAmount;
-        newPos.x += Mathf.Cos(timer / 2f) * bobAmount * 0.5f; // ✅ slight horizontal sway too
+        newPos.x += Mathf.Cos(timer / 2f) * bobAmount * 0.5f;
 
         transform.localPosition = Vector3.Lerp(transform.localPosition, newPos, Time.deltaTime * 10f);
     }
