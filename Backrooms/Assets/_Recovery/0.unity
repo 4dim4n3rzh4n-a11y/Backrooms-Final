@@ -563,12 +563,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8370067b29580de4ea534f3e8ceb23f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraBob
-  walkBobSpeed: 8
-  walkBobAmount: 0.03
-  sprintBobSpeed: 14
-  sprintBobAmount: 0.07
-  idleBobSpeed: 1.5
-  idleBobAmount: 0.01
+  walkBobSpeed: 2.5
+  walkBobAmount: 0.1
+  sprintBobSpeed: 6.7
+  sprintBobAmount: 0.2
+  idleBobSpeed: 2
+  idleBobAmount: 0.02
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
