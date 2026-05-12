@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip breathingSound;
     public float breathingVolume = 0.6f;
     public float breathingFadeSpeed = 2f;
-    public float breathingFadeOutDuration = 3f;
+    public float breathingFadeOutDuration = 3f; // ✅ how long breathing lingers after sprinting
 
     private AudioSource footstepSource;
     private AudioSource landingSource;
@@ -40,7 +40,6 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
     private bool wasGrounded;
     private float landingTimer = 0f;
-    private bool hasJumped = false;     // ✅ tracks if player has jumped
 
     public bool isSprinting = false;
     private bool isOnCooldown = false;
@@ -76,19 +75,14 @@ public class PlayerMovement : MonoBehaviour
         wasGrounded = isGrounded;
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask, QueryTriggerInteraction.Ignore);
 
-        // ✅ Landing: only plays if player actually jumped, with delay
-        if (!wasGrounded && isGrounded && hasJumped)
+        if (!wasGrounded && isGrounded && velocity.y < -1f)
         {
+            landingSource.PlayOneShot(landingSound);
             landingTimer = landingDelay;
-            hasJumped = false;
         }
 
         if (landingTimer > 0f)
-        {
             landingTimer -= Time.deltaTime;
-            if (landingTimer <= 0f)
-                landingSource.PlayOneShot(landingSound);
-        }
 
         if (isGrounded && velocity.y < 0)
             velocity.y = -2f;
@@ -134,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
         charCtrl.Move(move * currentSpeed * Time.deltaTime);
 
         // Footstep audio
-        bool isMoving = (h != 0 || v != 0) && isGrounded;
+        bool isMoving = (h != 0 || v != 0) && isGrounded && landingTimer <= 0f;
 
         if (isMoving)
         {
@@ -156,6 +150,7 @@ public class PlayerMovement : MonoBehaviour
             if (!breathingSource.isPlaying)
                 breathingSource.Play();
 
+            // Fade in fast
             breathingSource.volume = Mathf.MoveTowards(
                 breathingSource.volume,
                 breathingVolume,
@@ -164,6 +159,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            // ✅ Fade out slowly, lingers after sprinting stops
             breathingSource.volume = Mathf.MoveTowards(
                 breathingSource.volume,
                 0f,
@@ -176,10 +172,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Jump
         if (Input.GetButtonDown("Jump") && isGrounded)
-        {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            hasJumped = true;   // ✅ flag that we jumped so landing sound can play
-        }
 
         velocity.y += gravity * Time.deltaTime;
         charCtrl.Move(velocity * Time.deltaTime);
