@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip breathingSound;
     public float breathingVolume = 0.6f;
     public float breathingFadeSpeed = 2f;
-    public float breathingFadeOutDuration = 3f; // ✅ how long breathing lingers after sprinting
+    public float breathingFadeOutDuration = 3f; 
 
     private AudioSource footstepSource;
     private AudioSource landingSource;
@@ -127,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = transform.right * h + transform.forward * v;
         charCtrl.Move(move * currentSpeed * Time.deltaTime);
 
-        // Footstep audio
+        // Footstep audi
         bool isMoving = (h != 0 || v != 0) && isGrounded && landingTimer <= 0f;
 
         if (isMoving)
@@ -144,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
                 footstepSource.Stop();
         }
 
-        // Breathing audio
+        
         if (isSprinting)
         {
             if (!breathingSource.isPlaying)

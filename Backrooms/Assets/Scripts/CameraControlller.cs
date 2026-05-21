@@ -4,9 +4,10 @@ public class CameraControlller : MonoBehaviour
 {
     public float sensitivity = 2f;
     public float xRotation = 0f;
+
     void Start()
     {
-        Cursor.lockState= CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
@@ -15,10 +16,10 @@ public class CameraControlller : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * sensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
 
-        xRotation-= mouseY;
+        xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        transform.localRotation=Quaternion.Euler(xRotation,0f,0f);
-        transform.parent.Rotate(Vector3.up*mouseX);
+        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        transform.parent.Rotate(Vector3.up * mouseX);
     }
 }
