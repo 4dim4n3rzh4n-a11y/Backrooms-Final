@@ -2079,7 +2079,7 @@ MonoBehaviour:
   landingSound: {fileID: 8300000, guid: b04fd4f92df02374bb6c16b09b0712be, type: 3}
   landingVolume: 0.5
   landingDelay: 0.0001
-  breathingSound: {fileID: 8300000, guid: a5412d34f86a74840b3b4c95f498c3ee, type: 3}
+  breathingSound: {fileID: 8300000, guid: 6f8cb1ae840fc114f833cbe8fbb6483e, type: 3}
   breathingVolume: 100
   breathingFadeSpeed: 2
   breathingFadeOutDuration: 3
